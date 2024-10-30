@@ -11,11 +11,11 @@ function Contact() {
         e.preventDefault();
         const token = '1VYfSRCul7KbZbK2nv790zYcFdzpo8hPLSFLhrmuLRt';
         
-        // ถ้าไม่ได้กรอกข้อมูล จะส่งคำว่า "ไม่มีข้อมูล" ไปแทน
+        // ถ้าไม่ได้กรอกข้อมูล จะส่งคำว่า "ไม่มีข้อมูล" ไปแทนhttp://localhost:4000/send-line-notify
         const messageText = `ชื่อ: ${name || 'ไม่มีข้อมูล'}\nข้อความ: ${message || 'ไม่มีข้อมูล'}\nช่องทางการติดต่อ: ${contact || 'ไม่มีข้อมูล'}`;
 
         try {
-            const response = await axios.post("https://ratchanon-portfolio.netlify.app/send-line-notify", {
+            const response = await axios.post("http://localhost:4000/send-line-notify", {
                 token,
                 message: messageText,
             });
