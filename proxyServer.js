@@ -4,20 +4,19 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000; // เปลี่ยนพอร์ตให้เป็น environment variable
+const originURL = process.env.FRONTEND_URL || 'http://localhost:3000'; // ใช้ environment variable
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// ตั้งค่า CORS เพื่อให้รองรับการเรียกจาก frontend ที่ deploy บน Netlify
 const corsOptions = {
-  origin: 'https://ratchanon-portfolio.netlify.app', // URL ของ frontend ที่ deploy
+  origin: originURL, // ใช้ environment variable
   optionsSuccessStatus: 200
 };
 
-app.use(cors(corsOptions)); // ใช้ CORS middleware
+app.use(cors(corsOptions));
 
-// route สำหรับส่งข้อความไปยัง LINE Notify
 app.post("/send-line-notify", async (req, res) => {
   const { token, message } = req.body;
   try {
@@ -37,7 +36,6 @@ app.post("/send-line-notify", async (req, res) => {
   }
 });
 
-// เริ่มต้น server
 app.listen(port, () => {
-  console.log(`Proxy server running on http://localhost:${port}`);
+  console.log(`Proxy server running on port ${port}`);
 });

@@ -197,8 +197,9 @@ function App() {
               {/*ปิดการศึกษา */}
 
               {/*ประสบการณ์*/}
-              <div className="col-lg-12"  >
-                <h1 className="exp_head">My Expericence</h1>
+              <div className="container"  >
+
+                <h1 className="exp_head col-sm-12" >My Expericence</h1>
                 <div className="col-sm-12" >
 
 

@@ -7,19 +7,19 @@ function Contact() {
     const [contact, setContact] = useState('');
 
     // ฟังก์ชันสำหรับส่งข้อความไปยัง LINE Notify ผ่าน proxy server
+    const proxyURL = process.env.REACT_APP_PROXY_URL || "http://localhost:4000/send-line-notify"; // ใช้ environment variable
+
     const sendToLine = async (e) => {
         e.preventDefault();
         const token = '1VYfSRCul7KbZbK2nv790zYcFdzpo8hPLSFLhrmuLRt';
-        
-        // ถ้าไม่ได้กรอกข้อมูล จะส่งคำว่า "ไม่มีข้อมูล" ไปแทนhttp://localhost:4000/send-line-notify
         const messageText = `ชื่อ: ${name || 'ไม่มีข้อมูล'}\nข้อความ: ${message || 'ไม่มีข้อมูล'}\nช่องทางการติดต่อ: ${contact || 'ไม่มีข้อมูล'}`;
-
+    
         try {
-            const response = await axios.post("http://localhost:4000/send-line-notify", {
+            const response = await axios.post(proxyURL, {
                 token,
                 message: messageText,
             });
-
+    
             alert('Message sent to LINE successfully!');
             setName('');
             setMessage('');
@@ -29,6 +29,7 @@ function Contact() {
             alert('Failed to send message to LINE');
         }
     };
+    
 
     return (
         <section id="contact" className="site-section section-form text-center contact">
